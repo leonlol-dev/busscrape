@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-from requests_html import HTMLSession
 import requests
 import math
 
@@ -47,18 +46,11 @@ def busWebScrape():
     #COOKIES
     cookies=dict(name='passenger-favourites-0', password='%7B%22device%22%3A%2222c058ac3c381876afe702d5ba27132d%22%2C%22user%22%3Anull%2C%22lastSync%22%3Anull%2C%22favourites%22%3A%5B%5D%7D')
 
-    #HEADERS
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:39.0)'}
-
-
     #THAMES VALLEY BUS VANDYKE NORTH BOUND
-
-    session = HTMLSession()
-    html_text = session.get('https://www.thamesvalleybuses.com/stops/0380E283I250', headers=headers)
-    html_text.html.render()
+    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380E283I250', allow_redirects=False, cookies=cookies)
 
 
-    soup = BeautifulSoup(html_text.text, 'lxml')
+    soup = BeautifulSoup(html_text.content, 'lxml')
     thamesValleyNextBus = soup.find('p', class_ = 'sr-only')
     print(soup)
     
@@ -114,7 +106,7 @@ def busWebScrape():
 
 
     #VANDYKE SOUTH BOUND READING LION 4 BUS
-    html_text = requests.get('https://www.reading-buses.co.uk/stops/0380E293I261', headers=headers)
+    html_text = requests.get('https://www.reading-buses.co.uk/stops/0380E293I261', allow_redirects=False, cookies=cookies)
     
 
     soup = BeautifulSoup(html_text.content, 'lxml')
@@ -172,7 +164,7 @@ def busWebScrape():
 
     #THAMES VALLEY BUS ULLSWATER NORTH BOUND
 
-    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380E413J975', headers=headers)
+    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380E413J975', allow_redirects=False, cookies=cookies)
     soup = BeautifulSoup(html_text.content, 'lxml')
     thamesValleyNextBus = soup.find('p', class_ = 'sr-only')
 
@@ -240,11 +232,8 @@ def busHomeScrape():
     #COOKIES
     cookies=dict(name='passenger-favourites-0', password="%7B%22device%22%3A%2222c058ac3c381876afe702d5ba27132d%22%2C%22user%22%3Anull%2C%22lastSync%22%3Anull%2C%22favourites%22%3A%5B%5D%7D")
 
-    #HEADERS
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:39.0)'}
-
     #THAMES VALLEY BUS BRACKNELL BUS STATION BAY 9
-    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380F992G030', headers=headers)
+    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380F992G030', allow_redirects=False, cookies=cookies)
 
     soup = BeautifulSoup(html_text.text, 'lxml')
     thamesValleyNextBus = soup.find('p', class_ = 'sr-only')
@@ -302,7 +291,7 @@ def busHomeScrape():
 
 
     #THAMES VALLEY BUS BRACKNELL BUS STATION BAY 7
-    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380F992G059', headers=headers)
+    html_text = requests.get('https://www.thamesvalleybuses.com/stops/0380F992G059', allow_redirects=False, cookies=cookies)
 
     soup = BeautifulSoup(html_text.content, 'lxml')
     thamesValleyNextBus = soup.find('p', class_ = 'sr-only')
@@ -355,7 +344,7 @@ def busHomeScrape():
 
 
     # LION BUS BRACKNELL BUS STATION BAY 5
-    html_text = requests.get('https://www.reading-buses.co.uk/stops/0380F981G045', headers=headers)
+    html_text = requests.get('https://www.reading-buses.co.uk/stops/0380F981G045', allow_redirects=False, cookies=cookies)
 
     soup = BeautifulSoup(html_text.content, 'lxml')
     thamesValleyNextBus = soup.find('p', class_ = 'sr-only')
